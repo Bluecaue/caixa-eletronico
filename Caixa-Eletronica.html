@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+
+    <head>
+        <title>Caixa Eletrônico</title>
+        <script>
+            var saldo = 100.5;
+
+            function inicio() {
+                var nome = prompt('Qual é o seu nome?');
+                alert('Olá ' + nome + ', Bem vindo!');
+                var senha = prompt('Insira sua senha:');
+                if (senha !== '1234') {
+                    alert('Senha incorreta. Tente novamente.');
+                    inicio();
+                    return;
+                }
+                var escolha = parseInt(prompt('Escolha uma opção:\n1-) Saldo\n2-) Extrato\n3-) Saque\n4-) Depósito\n5-) Transferência\n6-) Sair'));
+
+                if (escolha === 1) {
+                    ver_saldo();
+                } else if (escolha === 2) {
+                    ver_extrato();
+                } else if (escolha === 3) {
+                    fazer_saque();
+                } else if (escolha === 4) {
+                    fazer_deposito();
+                } else if (escolha === 5) {
+                    fazer_transferencia();
+                } else if (escolha === 6) {
+                    sair();
+                } else {
+                    erro();
+                }
+            }
+
+            function ver_saldo() {
+                alert('Seu saldo é: ' + saldo);
+                inicio();
+            }
+
+            function ver_extrato() {
+                var extrato = "Extrato:\n";
+                extrato += "-------------------\n";
+                extrato += "Data  | Descrição | Valor\n";
+                extrato += "01/04 | Depósito  | R$ 5120.00\n";
+                extrato += "02/04 | Saque     | R$ 1500.00\n";
+                extrato += "03/04 | Compra    | R$ 20.00\n";
+                extrato += "-------------------\n";
+                alert(extrato);
+                inicio();
+            }
+
+            function fazer_deposito() {
+                var deposito = parseFloat(prompt('Qual o valor para depósito?'));
+                if (isNaN(deposito) || deposito <= 0) {
+                    alert('Operação não autorizada.');
+                    inicio();
+                } else {
+                    saldo += deposito;
+                    ver_saldo();
+                }
+            }
+
+            function fazer_saque() {
+                var saque = parseFloat(prompt('Qual o valor para saque?'));
+                if (isNaN(saque) || saque <= 0) {
+                    alert('Operação não autorizada.');
+                    inicio();
+                } else if (saque > saldo) {
+                    alert('Saldo insuficiente. Operação não autorizada.');
+                    inicio();
+                } else {
+                    saldo -= saque;
+                    ver_saldo();
+                }
+            }
+
+            function fazer_transferencia() {
+                var conta = parseInt(prompt('Informe o número da conta:'));
+                if (isNaN(conta) || conta <= 0) {
+                    alert('Número inválido. Operação não autorizada.');
+                    inicio();
+                }
+                var valor = parseFloat(prompt('Qual o valor para transferência?'));
+                if (isNaN(valor) || valor <= 0) {
+                    alert('Valor de transferência inválido. Operação não autorizada.');
+                    inicio();
+                } else if (valor > saldo) {
+                    alert('Saldo insuficiente. Operação não autorizada.');
+                    inicio();
+                } else {
+                    saldo -= valor;
+                    alert('Transferência no valor de R$' + valor + ' realizada para a conta ' + conta + '.');
+                    ver_saldo();
+                }
+            }
+
+            function erro() {
+                alert('Informe um número válido entre: 1 e 6');
+                inicio();
+            }
+
+            function sair() {
+                var confirma = confirm('Você deseja sair?');
+                if (confirma) {
+                    alert(nome + ', foi um prazer ter você aqui!');
+                    window.close();
+                } else {
+                    inicio();
+                }
+            }
+
+            inicio();
+        </script>
+    </head>
+
+<body>
+<div>caixa</div>
+</body>
+
+</html>
